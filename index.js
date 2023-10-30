@@ -10,42 +10,29 @@ function getComputerChoice() {
   }
 }
 
-function getPlayerChoice() {
-  let randomInteger = Math.floor(Math.random() * 3)
-
-  if (randomInteger === 0) {
-    return 'rock'
-  } else if (randomInteger === 1) {
-    return 'paper'
-  } else {
-    return 'scissors'
-  }
-}
-
 function playRound(playerSelection, computerSelection) {
-  let lowerCasedPlayerSelection = playerSelection.toLowerCase()
-
-  if (lowerCasedPlayerSelection === 'rock' && computerSelection === 'scissors') {
-    return 'You win! Rock beats scissors.'
-  } else if (lowerCasedPlayerSelection === 'rock' && computerSelection === 'paper') {
-    return 'You lose! Paper beats rock.'
-  } else if (lowerCasedPlayerSelection === 'paper' && computerSelection === 'rock') {
-    return 'You win! Paper beats rock.'
-  } else if (lowerCasedPlayerSelection === 'paper' && computerSelection === 'scissors') {
-    return 'You lose! Scissors beat paper.'
-  } else if (lowerCasedPlayerSelection === 'scissors' && computerSelection === 'paper') {
-    return 'You win! Scissors beat paper.'
-  } else if (lowerCasedPlayerSelection === 'scissors' && computerSelection === 'rock') {
-    return 'You lose! Rock beats scissors.'
+  const player = playerSelection.toLowerCase()
+  const winningCombos = {
+    rock: 'scissors',
+    paper: 'rock',
+    scissors: 'paper'
+  }
+  
+  if (winningCombos[player] === computerSelection) {
+    return `You win! ${playerSelection} beats ${computerSelection}`
+  } else if (winningCombos[computerSelection] === player) {
+    return `You lose! ${computerSelection} beats ${playerSelection}`
   } else {
     return 'Tie!'
   }
 }
 
-const playerSelection = getPlayerChoice()
-const computerSelection = getComputerChoice()
+function game() {
+  for (let step = 0; step < 5; step++) {
+    const playerSelection = prompt("rock, paper or scissors?")
+    const computerSelection = getComputerChoice()
+    console.log(playRound(playerSelection, computerSelection))
+  }
+}
 
-console.log(playerSelection)
-console.log(computerSelection)
-
-console.log(playRound(playerSelection, computerSelection))
+game()
