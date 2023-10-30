@@ -1,3 +1,6 @@
+let playerPoints = 0
+let computerPoints = 0
+
 function getComputerChoice() {
   let randomInteger = Math.floor(Math.random() * 3)
 
@@ -17,10 +20,12 @@ function playRound(playerSelection, computerSelection) {
     paper: 'rock',
     scissors: 'paper'
   }
-  
+
   if (winningCombos[player] === computerSelection) {
+    playerPoints++
     return `You win! ${playerSelection} beats ${computerSelection}`
   } else if (winningCombos[computerSelection] === player) {
+    computerPoints++
     return `You lose! ${computerSelection} beats ${playerSelection}`
   } else {
     return 'Tie!'
@@ -32,7 +37,15 @@ function game() {
     const playerSelection = prompt("rock, paper or scissors?")
     const computerSelection = getComputerChoice()
     console.log(playRound(playerSelection, computerSelection))
+    console.log(playerPoints)
+    console.log(computerPoints)
   }
+
+  if (playerPoints > computerPoints) {
+    console.log('you win. congratulations.')
+  } else {
+    console.log('you lose.')
+  } 
 }
 
 game()
